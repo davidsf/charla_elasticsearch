@@ -1,4 +1,4 @@
-charla_elasticsearch
+Charla Elasticsearch
 ====================
 
 Presentación y ejemplos de la charla sobre Elasticsearch
