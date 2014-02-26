@@ -1,0 +1,11 @@
+{
+  "type":"jdbc",
+  "jdbc": {
+    "url":"jdbc:mysql://localhost:3306/spain",
+    "user": "root",
+    "password": "",
+    "sql": "select id_municipio, id_municipio as _id, p.provincia, m.nombre from provincias p, municipios m where m.id_provincia=p.id_provincia;",
+    "index": "spain",
+    "type": "municipios"
+  }
+}

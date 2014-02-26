@@ -1,0 +1,16 @@
+{
+  "settings": {
+    "index": {
+      "analysis": {
+        "analyzer": {
+          "miblog": {
+            "tokenizer": "standard",
+            "filter": ["lowercase", "asciifolding"],
+            "char_filter": ["html_strip"]
+          }
+        }
+      }
+    }
+  }
+}
+            

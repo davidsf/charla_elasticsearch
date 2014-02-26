@@ -1,0 +1,20 @@
+{
+  "municipios": {
+    "properties" : {
+      "provincia": { 
+        "type": "multi_field",
+        "fields": {
+          "provincia": { "type": "string", "index": "analyzed" },
+          "prov_as_is": { "type": "string", "index": "not_analyzed" }
+        }
+      },
+      "nombre": {
+        "type": "multi_field",
+        "fields": {
+          "nombre": { "type": "string", "index": "analyzed"},
+          "nombre_auto": { "type": "string", "analyzer": "autocomplete_analyzer"}
+        }
+      }
+    }
+  }
+}

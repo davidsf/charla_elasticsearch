@@ -1,0 +1,22 @@
+{
+  "settings" : {
+    "index" : {
+      "analysis" : {
+        "analyzer" : {
+          "autocomplete_analyzer" : {
+            "type" : "custom",
+            "tokenizer" : "lowercase",
+            "filter" : ["asciifolding", "title_ngram"]
+          }
+        },
+        "filter" : {
+          "title_ngram" : {
+            "type" : "nGram",
+            "min_gram" : 3,
+            "max_gram" : 5
+          }
+        }
+      }
+    }
+  }
+}
