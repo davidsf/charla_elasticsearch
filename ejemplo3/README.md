@@ -30,6 +30,7 @@ Esto se hace a través de Agregados:
     }'
 
 Si vemos los resultados, vemos que no funciona correctamente, nos devuelve cosas como:
+
   {
      "key": "valencia",
      "doc_count": 266
