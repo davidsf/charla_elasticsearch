@@ -54,7 +54,7 @@ Esto es porque el campo provincia está analizado al importar y separa elementos
      "aggs": {
       "mun_por_provincia": {
        "terms" : {
-        "field" : "prov_as_is",
+        "field" : "provincia.as_is",
         "size": 52
        }
       }
