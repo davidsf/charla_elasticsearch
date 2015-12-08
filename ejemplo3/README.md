@@ -1,41 +1,57 @@
+### Creación BD mysql
+Creamos la base de datos 'spain' e importamos los datos:
+
+  mysqladmin create spain
+  cat spain_municipios_INE.sql | mysql spain
+
+
 ### IMPORTACION DESDE MYSQL
-Instalación del river jdbc en Elasticsearch 1.0:
+Utilizamos la api ruby tanto de mysql como de Elasticsearch para importar los datos.
 
-    ./bin/plugin --install river-jdbc --url http://bit.ly/1jyXrR9
+  ./import.rb
 
-    curl -XPUT 'http://localhost:9200/_river/lima_river/_meta' -d @river.json
-
-Borramos el river una vez importados:
-
-    curl -XDELETE 'http://localhost:9200/_river/lima_river/'
-
-FACETS:
+### Consulta
+Nuestro objetivo es ordenar las provincias según el número de municipios que tienen.
+Esto se hace a través de Agregados:
 
     curl -XGET 'http://localhost:9200/spain/_search?pretty' -d '{
-     "query": { "match_all" : {} },
-     "facets": {
-      "my_query_facet": {
-       "terms" : {
-        "field" : "provincia",
-        "size": 52
-       }
+      "query": {
+        "match_all": {}
+      },
+      "size": 0,
+      "aggs": {
+        "mun_por_provincia": {
+          "terms": {
+            "field": "provincia",
+            "size": 52
+          }
+        }
       }
-     }
     }'
 
-Esto no funciona porque el campo provincia está analizado al importar.
+Si vemos los resultados, vemos que no funciona correctamente, nos devuelve cosas como:
+  {
+     "key": "valencia",
+     "doc_count": 266
+   },
+   {
+     "key": "valència",
+     "doc_count": 266
+   },
 
-### MAPPING Provincia para FACETS:
+Esto es porque el campo provincia está analizado al importar y separa elementos como "valencia/valència" en dos.
+
+### MAPPING Provincia para AGGS:
 
     curl -XDELETE 'http://localhost:9200/spain/municipios/'
     curl -XPUT 'http://localhost:9200/spain/municipios/_mapping' -d @mapping_prov1.json
-    curl -XPUT 'http://localhost:9200/_river/lima_river/_meta' -d @river.json
+    ./import.rb
 
     curl -XGET 'http://localhost:9200/spain/municipios/_search?pretty' -d '{
      "query": { "match_all" : {} },
      "size": 0,
-     "facets": {
-      "my_query_facet": {
+     "aggs": {
+      "mun_por_provincia": {
        "terms" : {
         "field" : "prov_as_is",
         "size": 52
