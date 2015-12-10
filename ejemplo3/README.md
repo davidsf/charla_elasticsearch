@@ -1,19 +1,29 @@
 ### Creación BD mysql
 Creamos la base de datos 'spain' e importamos los datos:
+```
+mysql  <municipios-geolocalizados.sql
+```
 
-  mysqladmin create spain
-  cat spain_municipios_INE.sql | mysql spain
-
-
-### IMPORTACION DESDE MYSQL
+### Importación desde Mysql a Elasticsearch
 Utilizamos la api ruby tanto de mysql como de Elasticsearch para importar los datos.
 
-  ./import.rb
+Para ello instalar las gemas:
+
+```
+gem install mysql
+gem install elasticsearch
+```
+
+Ejecutamos el script:
+```
+./import.rb
+```
 
 ### Consulta
 Nuestro objetivo es ordenar las provincias según el número de municipios que tienen.
 Esto se hace a través de Agregados:
 
+```
     curl -XGET 'http://localhost:9200/spain/_search?pretty' -d '{
       "query": {
         "match_all": {}
@@ -28,9 +38,12 @@ Esto se hace a través de Agregados:
         }
       }
     }'
+```
+
 
 Si vemos los resultados, vemos que no funciona correctamente, nos devuelve cosas como:
 
+```
   {
      "key": "valencia",
      "doc_count": 266
@@ -39,15 +52,18 @@ Si vemos los resultados, vemos que no funciona correctamente, nos devuelve cosas
      "key": "valència",
      "doc_count": 266
    },
+```
 
 Esto es porque el campo provincia está analizado al importar y separa elementos como "valencia/valència" en dos.
 
 ### MAPPING Provincia para AGGS:
-
+```
     curl -XDELETE 'http://localhost:9200/spain/municipios/'
     curl -XPUT 'http://localhost:9200/spain/municipios/_mapping' -d @mapping_prov1.json
     ./import.rb
+```
 
+```
     curl -XGET 'http://localhost:9200/spain/municipios/_search?pretty' -d '{
      "query": { "match_all" : {} },
      "size": 0,
@@ -60,3 +76,4 @@ Esto es porque el campo provincia está analizado al importar y separa elementos
       }
      }
     }'
+```
