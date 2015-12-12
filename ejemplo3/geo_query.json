@@ -1,0 +1,16 @@
+{
+  "query": {
+    "filtered": {
+      "filter": {
+        "geo_distance": {
+          "distance": "4km",
+          "location": {
+            "lat": 37.1764874,
+            "lon": -3.5979291
+          }
+        }
+      }
+    }
+  },
+  "size": "100"
+}

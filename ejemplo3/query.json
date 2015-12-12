@@ -1,0 +1,36 @@
+{
+ "query": { "match_all" : {} },
+ "size": 0,
+ "aggs": {
+  "mun_por_provincia": {
+   "terms" : {
+    "field" : "provincia.as_is",
+    "size": 52
+   }
+  }
+ }
+}
+
+
+{
+  "query": {
+    "match_all": {}
+  },
+  "size": 0,
+  "aggs": {
+    "mun_por_comunidad": {
+      "terms": {
+        "field": "comunidad.as_is",
+        "size": 52
+      },
+      "aggs": {
+        "mun_por_provincia": {
+          "terms": {
+            "field": "provincia.as_is",
+            "size": 100
+          }
+        }
+      }
+    }
+  }
+}
