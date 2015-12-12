@@ -1,0 +1,23 @@
+{
+  "municipios": {
+    "properties" : {
+      "provincia": {
+        "type": "multi_field",
+        "fields": {
+          "provincia": { "type": "string", "index": "analyzed" },
+          "as_is": { "type": "string", "index": "not_analyzed" }
+        }
+      },
+      "comunidad": {
+       "type": "multi_field",
+        "fields": {
+          "comunidad": { "type": "string", "index": "analyzed" },
+          "as_is": { "type": "string", "index": "not_analyzed" }
+        }
+      },
+      "location": {
+        "type": "geo_point"
+      }
+    }
+  }
+}
