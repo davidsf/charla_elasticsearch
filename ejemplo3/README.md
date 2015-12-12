@@ -58,11 +58,13 @@ Esto es porque el campo provincia está analizado al importar y separa elementos
 
 ### MAPPING Provincia para AGGS:
 ```
-    curl -XDELETE 'http://localhost:9200/spain/municipios/'
+    curl -XDELETE 'http://localhost:9200/spain/'
+    curl -XPUT 'http://localhost:9200/spain/'
     curl -XPUT 'http://localhost:9200/spain/municipios/_mapping' -d @mapping_prov1.json
     ./import.rb
 ```
 
+Número de municipios por provincia:
 ```
     curl -XGET 'http://localhost:9200/spain/municipios/_search?pretty' -d '{
      "query": { "match_all" : {} },
