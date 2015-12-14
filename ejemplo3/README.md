@@ -79,3 +79,16 @@ Número de municipios por provincia:
      }
     }'
 ```
+### Sugerencias
+```
+{
+  "suggest": {
+    "my-suggestion": {
+      "text": "fuengiorla",
+      "term": {
+        "field": "nombre"
+      }
+    }
+  }
+}
+```
