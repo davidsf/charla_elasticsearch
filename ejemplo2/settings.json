@@ -4,13 +4,12 @@
       "analysis": {
         "analyzer": {
           "miblog": {
+            "char_filter": ["html_strip"],
             "tokenizer": "standard",
-            "filter": ["lowercase", "asciifolding"],
-            "char_filter": ["html_strip"]
+            "filter": ["lowercase", "asciifolding"]
           }
         }
       }
     }
   }
 }
-            

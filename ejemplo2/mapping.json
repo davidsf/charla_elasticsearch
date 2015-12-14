@@ -1,7 +1,10 @@
 {
   "posts": {
     "properties": {
-      "title": { "type": "string", "index": "analyzed", "analyzer": "miblog" }
+      "title": {
+        "type": "string",
+        "analyzer": "miblog" 
+      }
     }
   }
 }
