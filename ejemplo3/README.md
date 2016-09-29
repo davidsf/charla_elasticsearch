@@ -10,7 +10,7 @@ Utilizamos la api ruby tanto de mysql como de Elasticsearch para importar los da
 Para ello instalar las gemas:
 
 ```
-gem install mysql
+gem install mysql2
 gem install elasticsearch
 ```
 
