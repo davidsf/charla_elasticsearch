@@ -1,15 +1,15 @@
 #!/usr/bin/env ruby
 require 'rubygems'
 require 'elasticsearch'
-require 'mysql'
+require 'mysql2'
 
 client = Elasticsearch::Client.new
 
-conn = Mysql.new 'localhost', 'root', '', 'spain'
+conn = Mysql2::Client.new(host:'localhost', username:'root', password:'', database:'spain')
 
 body = []
 res=conn.query('select m.id, p.provincia, m.municipio from provincias p, municipios m where m.provincia_id=p.id;')
-res.each_hash do |row|
+res.each do |row|
 	body << { index: {
 			_index: 'spain',
 			_type:'municipios',
